@@ -4,28 +4,39 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#07111f">
-  <meta name="description" content="Hakkım AI — tüketici hakları vaka takip asistanı canlı beta demosu">
-  <title>Hakkım AI — Canlı Beta</title>
+  <meta name="description" content="Hakkım AI — tüketici hakları vaka takip asistanı V0.10 local-first beta">
+  <title>Hakkım AI — V0.10 Local‑First Beta</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
   <nav>
-    <div class="brand"><b>H</b> Hakkım AI <span>V0.9 CANLI BETA</span></div>
-    <div class="nav-actions"><button id="exportAll" class="ghost">Vakaları dışa aktar</button><button id="reset" class="ghost danger">Yerel veriyi sil</button></div>
+    <div class="brand"><b>H</b> Hakkım AI <span>V0.10 LOCAL‑FIRST</span></div>
+    <div class="nav-actions">
+      <button id="vaultBtn" class="ghost">Kasayı yönet</button>
+      <button id="importBtn" class="ghost">İçe aktar</button>
+      <button id="exportAll" class="ghost">Yedekle</button>
+      <button id="reset" class="ghost danger">Yerel veriyi sil</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+    </div>
   </nav>
 
   <section class="head">
     <div>
       <small>VAKA MERKEZİ</small>
       <h1>Sen uğraşma, hakkını o takip etsin.</h1>
-      <p>Sorununu anlat; demo kural motoru kategoriyi, kanıt listesini ve uygun resmî başvuru rotasını çıkarsın. Bu beta verileri yalnızca bu tarayıcıda saklar.</p>
+      <p>Sorununu anlat; yerel kural motoru kategoriyi, kanıt listesini ve uygun resmî başvuru rotasını çıkarsın. V0.10’da isteğe bağlı cihaz‑içi şifreli kasa, SHA‑256 kanıt özeti ve vaka yedekleme bulunur.</p>
     </div>
     <div class="counter"><b id="count">0</b><span>yerel vaka</span></div>
   </section>
 
-  <div class="beta-note"><b>Gizlilik:</b> Bu public beta sunucuya vaka verisi göndermez. e-Devlet şifresi, banka şifresi, PIN/CVV veya SMS doğrulama kodu girmeyin.</div>
+  <div class="beta-note" id="privacyNote"><b>Gizlilik:</b> Bu public beta vaka verisini bir sunucuya göndermez. Şifreli kasa açılırsa vakalar AES‑GCM ile cihazda şifreli tutulur. e‑Devlet şifresi, banka şifresi, PIN/CVV veya SMS kodu girmeyin.</div>
+
+  <section class="vault-strip">
+    <div><b id="vaultState">Kasa kapalı</b><span id="vaultDetail">Vakalar bu tarayıcıda yerel tutuluyor.</span></div>
+    <button id="notifyBtn" class="mini">Hatırlatma bildirimi aç</button>
+  </section>
 
   <div class="layout">
     <form id="form" class="panel">
@@ -37,27 +48,32 @@
       </div>
       <label>Ne oldu?<textarea id="desc" rows="7" minlength="10" required placeholder="Ürün bozuk çıktı, iade talebimi reddettiler..."></textarea></label>
       <label>İstediğin sonuç<input id="desired" placeholder="Para iadesi"></label>
+      <label>Hatırlatma zamanı (isteğe bağlı)<input id="reminderAt" type="datetime-local"></label>
+      <label>Kanıt dosyaları — içerik yüklenmez, yalnız ad/tür/boyut/SHA‑256 kaydedilir
+        <input id="evidenceFiles" type="file" multiple>
+      </label>
+      <div id="fileStatus" class="file-status">Dosya seçilmedi.</div>
       <div class="safe">⚿ Hassas giriş bilgilerini ve kimlik doğrulama kodlarını buraya yazma.</div>
       <button class="primary">Vakayı analiz et</button>
     </form>
 
     <section class="panel result" id="result">
-      <div class="empty"><div class="orb">H</div><h2>Vaka analizi burada oluşacak</h2><p>Kategori, resmî rota, kanıt listesi ve ilk talep taslağı tek ekranda.</p></div>
+      <div class="empty"><div class="orb">H</div><h2>Vaka analizi burada oluşacak</h2><p>Kategori, resmî rota, kanıt listesi, SHA‑256 kanıt özeti ve ilk talep taslağı tek ekranda.</p></div>
     </section>
   </div>
 
   <section class="panel cases">
     <div class="feature-strip">
-      <span>Yerel sınıflandırma</span><span>Resmî kanal yönlendirmesi</span><span>Kanıt kontrol listesi</span><span>Talep taslağı</span><span>JSON dışa aktarım</span><span>PWA / offline kabuk</span>
+      <span>Yerel sınıflandırma</span><span>AES‑GCM kasa</span><span>PBKDF2 anahtar türetme</span><span>SHA‑256 kanıt özeti</span><span>JSON yedek/içe aktar</span><span>Hatırlatma</span><span>PWA / offline</span>
     </div>
-    <div class="row"><h2>Vakalar</h2><span id="mode">Kurallar: 2026 / demo</span></div>
+    <div class="row"><h2>Vakalar</h2><span id="mode">Local‑first beta</span></div>
     <div id="list" class="list"></div>
   </section>
 
   <section class="panel official">
     <h2>Resmî kanallar</h2>
     <div class="official-grid">
-      <a target="_blank" rel="noopener" href="https://www.turkiye.gov.tr/tuketici-sikayeti-uygulamasi"><b>Tüketici Hakem Heyeti</b><span>e-Devlet başvurusu</span></a>
+      <a target="_blank" rel="noopener" href="https://www.turkiye.gov.tr/tuketici-sikayeti-uygulamasi"><b>Tüketici Hakem Heyeti</b><span>e‑Devlet başvurusu</span></a>
       <a target="_blank" rel="noopener" href="https://www.turkiye.gov.tr/btk-tuketici-sikayet-bildirim-sistemi-4764"><b>BTK</b><span>Telekom tüketici şikâyeti</span></a>
       <a target="_blank" rel="noopener" href="https://kdmerp.shgm.gov.tr/YhkYolcuHaklariYonlendirme/index"><b>SHGM</b><span>Yolcu hakları yönlendirmesi</span></a>
       <a target="_blank" rel="noopener" href="https://www.tbb.org.tr/finansal-tuketici/bireysel-musteri-hakem-heyeti"><b>TBB</b><span>Bireysel Müşteri Hakem Heyeti</span></a>
@@ -66,6 +82,22 @@
 
   <footer>Hakkım AI hukuki temsil veya avukatlık hizmeti sunmaz. Resmî başvurular kullanıcı tarafından yapılır; yüksek riskli uyuşmazlıklarda lisanslı profesyonel desteği alın. 2026 THH parasal sınırı: 186.000 TL.</footer>
 </div>
+
+<dialog id="vaultDialog">
+  <form method="dialog" class="vault-dialog">
+    <h2>Şifreli kasa</h2>
+    <p>İsteğe bağlı kasa, vaka listesini cihazda AES‑GCM ile şifreler. Parolanız sunucuya gitmez ve kaybedilirse geri getirilemez.</p>
+    <label>Kasa parolası<input id="vaultPassword" type="password" minlength="8" autocomplete="new-password" placeholder="En az 8 karakter"></label>
+    <div class="dialog-actions">
+      <button value="cancel" class="ghost">Kapat</button>
+      <button type="button" id="unlockVault" class="ghost">Kilidi aç</button>
+      <button type="button" id="enableVault" class="primary compact">Kasayı etkinleştir</button>
+      <button type="button" id="disableVault" class="ghost danger">Kasayı kaldır</button>
+    </div>
+    <div id="vaultMessage" class="file-status"></div>
+  </form>
+</dialog>
+
 <script src="app.js"></script>
 </body>
 </html>
