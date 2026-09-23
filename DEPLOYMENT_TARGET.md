@@ -1,10 +1,19 @@
-# Hakkım AI Live Demo
+# Hakkım AI Live Beta
 
-Bu repo yalnızca statik demo dağıtımı içindir. Ana kaynak kod private `Hakk-m_Al-` reposunda tutulur.
+Bu repo yalnızca statik beta dağıtımı içindir. Ana kaynak kod private `Hakk-m_Al-` reposunda tutulur.
 
-## Canlı demo
-- Sabit CDN: https://rawcdn.githack.com/saygilicihan4-lgtm/-ecek-/6da9bb5081e1dc8581db45d09f7d63b62986acc4/index.html
-- Güncel geliştirme CDN: https://raw.githack.com/saygilicihan4-lgtm/-ecek-/main/index.html
+## Canlı beta
+- Güncel canlı adres: https://raw.githack.com/saygilicihan4-lgtm/-ecek-/main/index.html
+- Sabit commit adresi: https://rawcdn.githack.com/saygilicihan4-lgtm/-ecek-/0190272b88d2b85dfc0f9d415988aa2239629f41/index.html
+
+## Durum
+- Vaka sınıflandırma: aktif
+- 2026 THH rota mantığı: aktif
+- Resmî THH / BTK / SHGM / TBB bağlantıları: aktif
+- Yerel vaka saklama: aktif
+- JSON dışa aktarım: aktif
+- PWA / offline kabuk: aktif
+- Sunucuya kişisel veri gönderimi: yok
 
 ## GitHub Pages
-Pages workflow hazırdır. GitHub Pages repo ayarında etkinleştirildiğinde aynı statik paket doğrudan github.io adresinden yayınlanacaktır.
+Workflow hazırdır ancak Pages ilk kez GitHub repo ayarından etkinleştirilmelidir. Etkinleştirme sonrası `github.io` adresinden yayın yapılabilir.
