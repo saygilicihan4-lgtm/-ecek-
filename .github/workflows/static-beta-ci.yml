@@ -1,0 +1,36 @@
+name: Hakkim AI Static Beta CI
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: JavaScript syntax
+        run: node --check app.js && node --check sw.js
+      - name: Required beta files
+        shell: bash
+        run: |
+          test -s index.html
+          test -s style.css
+          test -s app.js
+          test -s manifest.webmanifest
+          test -s sw.js
+      - name: V0.10 security features
+        shell: bash
+        run: |
+          grep -q "V0.10 LOCAL" index.html
+          grep -q "AES-GCM" app.js
+          grep -q "PBKDF2" app.js
+          grep -q "SHA-256" app.js
+          grep -q "hakkim-v10-vault" app.js
+      - name: No obvious committed secrets
+        shell: bash
+        run: |
+          ! grep -R -E "sb_secret_[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{20,}|service_role.{0,20}[A-Za-z0-9_-]{20,}" --exclude-dir=.git .
