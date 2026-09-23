@@ -1,20 +1,71 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hakkım AI V0.9 Preview</title><link rel="stylesheet" href="style.css"></head><body>
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Hakkım AI — tüketici hakları vaka takip asistanı canlı beta demosu">
+  <title>Hakkım AI — Canlı Beta</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 <div class="wrap">
-  <nav><div class="brand"><b>H</b> Hakkım AI <span>V0.9 UI DEMO</span></div><button id="reset" class="ghost">Sıfırla</button></nav>
-  <section class="head"><div><small>VAKA MERKEZİ</small><h1>Sen uğraşma, hakkını o takip etsin.</h1><p>Bu statik önizleme gerçek Supabase hesabı veya AI anahtarı gerektirmez. V0.9 kullanıcı akışını gösterir.</p></div><div class="counter"><b id="count">0</b><span>yerel demo vaka</span></div></section>
+  <nav>
+    <div class="brand"><b>H</b> Hakkım AI <span>V0.9 CANLI BETA</span></div>
+    <div class="nav-actions"><button id="exportAll" class="ghost">Vakaları dışa aktar</button><button id="reset" class="ghost danger">Yerel veriyi sil</button></div>
+  </nav>
+
+  <section class="head">
+    <div>
+      <small>VAKA MERKEZİ</small>
+      <h1>Sen uğraşma, hakkını o takip etsin.</h1>
+      <p>Sorununu anlat; demo kural motoru kategoriyi, kanıt listesini ve uygun resmî başvuru rotasını çıkarsın. Bu beta verileri yalnızca bu tarayıcıda saklar.</p>
+    </div>
+    <div class="counter"><b id="count">0</b><span>yerel vaka</span></div>
+  </section>
+
+  <div class="beta-note"><b>Gizlilik:</b> Bu public beta sunucuya vaka verisi göndermez. e-Devlet şifresi, banka şifresi, PIN/CVV veya SMS doğrulama kodu girmeyin.</div>
+
   <div class="layout">
     <form id="form" class="panel">
       <h2>Yeni vaka</h2>
-      <label>Firma / kurum<input id="company" placeholder="Örn. X Mağazası"></label>
-      <div class="two"><label>Tutar (TL)<input id="amount" inputmode="decimal" placeholder="2499"></label><label>İşlem tarihi<input id="date" type="date"></label></div>
-      <label>Ne oldu?<textarea id="desc" rows="6" minlength="10" required placeholder="Ürün bozuk çıktı, iade talebimi reddettiler..."></textarea></label>
+      <label>Firma / kurum<input id="company" autocomplete="organization" placeholder="Örn. X Mağazası"></label>
+      <div class="two">
+        <label>Tutar (TL)<input id="amount" inputmode="decimal" placeholder="2499"></label>
+        <label>İşlem tarihi<input id="date" type="date"></label>
+      </div>
+      <label>Ne oldu?<textarea id="desc" rows="7" minlength="10" required placeholder="Ürün bozuk çıktı, iade talebimi reddettiler..."></textarea></label>
       <label>İstediğin sonuç<input id="desired" placeholder="Para iadesi"></label>
-      <div class="safe">⚿ Şifre, PIN, CVV, SMS doğrulama kodu veya e-Devlet bilgisi ekleme.</div>
-      <button class="primary">Analiz et</button>
+      <div class="safe">⚿ Hassas giriş bilgilerini ve kimlik doğrulama kodlarını buraya yazma.</div>
+      <button class="primary">Vakayı analiz et</button>
     </form>
+
     <section class="panel result" id="result">
-      <div class="empty"><div class="orb">H</div><h2>Vaka analizi burada oluşacak</h2><p>Kategori, resmi rota, kanıt listesi ve ilk talep taslağı tek ekranda.</p></div>
+      <div class="empty"><div class="orb">H</div><h2>Vaka analizi burada oluşacak</h2><p>Kategori, resmî rota, kanıt listesi ve ilk talep taslağı tek ekranda.</p></div>
     </section>
   </div>
-  <section class="panel cases"><div class="feature-strip"><span>PDF + görsel OCR</span><span>PII maskeleme</span><span>SHA-256 belge özeti</span><span>Başvuru paketi</span><span>KVKK silme/dışa aktarım</span></div><div class="row"><h2>Demo vakalar</h2><span id="mode">Yerel kural motoru</span></div><div id="list" class="list"></div></section>
-</div><footer style="color:#7288a1;font-size:11px;line-height:1.6;padding:22px 4px 0;text-align:center">Hakkım AI hukuki temsil veya avukatlık hizmeti sunmaz. Resmî başvurular kullanıcı tarafından yapılır; yüksek riskli uyuşmazlıklarda lisanslı profesyonel desteği alın.</footer><script src="app.js"></script></body></html>
+
+  <section class="panel cases">
+    <div class="feature-strip">
+      <span>Yerel sınıflandırma</span><span>Resmî kanal yönlendirmesi</span><span>Kanıt kontrol listesi</span><span>Talep taslağı</span><span>JSON dışa aktarım</span><span>PWA / offline kabuk</span>
+    </div>
+    <div class="row"><h2>Vakalar</h2><span id="mode">Kurallar: 2026 / demo</span></div>
+    <div id="list" class="list"></div>
+  </section>
+
+  <section class="panel official">
+    <h2>Resmî kanallar</h2>
+    <div class="official-grid">
+      <a target="_blank" rel="noopener" href="https://www.turkiye.gov.tr/tuketici-sikayeti-uygulamasi"><b>Tüketici Hakem Heyeti</b><span>e-Devlet başvurusu</span></a>
+      <a target="_blank" rel="noopener" href="https://www.turkiye.gov.tr/btk-tuketici-sikayet-bildirim-sistemi-4764"><b>BTK</b><span>Telekom tüketici şikâyeti</span></a>
+      <a target="_blank" rel="noopener" href="https://kdmerp.shgm.gov.tr/YhkYolcuHaklariYonlendirme/index"><b>SHGM</b><span>Yolcu hakları yönlendirmesi</span></a>
+      <a target="_blank" rel="noopener" href="https://www.tbb.org.tr/finansal-tuketici/bireysel-musteri-hakem-heyeti"><b>TBB</b><span>Bireysel Müşteri Hakem Heyeti</span></a>
+    </div>
+  </section>
+
+  <footer>Hakkım AI hukuki temsil veya avukatlık hizmeti sunmaz. Resmî başvurular kullanıcı tarafından yapılır; yüksek riskli uyuşmazlıklarda lisanslı profesyonel desteği alın. 2026 THH parasal sınırı: 186.000 TL.</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
