@@ -1,5 +1,15 @@
 name: Deploy Hakkim AI Live Demo
 on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "app.js"
+      - "style.css"
+      - "manifest.webmanifest"
+      - "service-worker.js"
+      - "sw.js"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 permissions:
   contents: read
