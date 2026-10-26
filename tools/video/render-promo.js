@@ -230,7 +230,7 @@ function phoneScreen(t) {
   }
   if (current) out.push(current);
   const caretLine = Math.max(0, out.length - 1);
-  const caretX = clamp(62 + (out[out.length - 1] || '').length * 13.1, 62, 636);
+  const caretX = clamp(62 + (out[out.length - 1] || '').length * 11.2, 62, 636);
 
   return `<g>
     ${panel(0, 0, 700, 1150, 60, C.panel2, C.line, 3)}
@@ -751,7 +751,7 @@ async function main() {
     return;
   }
 
-  const audioFile = SILENT ? null : writeAudioBed(path.join(require('os').tmpdir(), 'hakkim-ai-bed.wav'));
+  const audioFile = SILENT ? null : writeAudioBed(path.join(os.tmpdir(), 'hakkim-ai-bed.wav'));
   console.log(
     `Hakkım AI tanıtım videosu → ${path.relative(process.cwd(), OUT)} · ` +
       `${LAYOUT.W}x${LAYOUT.H} · ${FPS} fps · ${DURATION}s${audioFile ? ' · sesli' : ' · sessiz'}`
