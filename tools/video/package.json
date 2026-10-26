@@ -1,0 +1,20 @@
+{
+  "name": "hakkim-ai-video",
+  "version": "0.10.0",
+  "private": true,
+  "description": "Hakkım AI tanıtım videosu üreticisi (SVG kareler + ffmpeg)",
+  "license": "UNLICENSED",
+  "scripts": {
+    "render": "npm run render:9x16 && npm run render:16x9",
+    "render:9x16": "node render-promo.js --format vertical --out ../../assets/video/hakkim-ai-promo-9x16.mp4 --poster ../../assets/video/hakkim-ai-promo-9x16-kapak.jpg",
+    "render:16x9": "node render-promo.js --format wide --out ../../assets/video/hakkim-ai-promo-16x9.mp4 --poster ../../assets/video/hakkim-ai-promo-16x9-kapak.jpg",
+    "still": "node render-promo.js --format vertical --still 12.5 --out /tmp/hakkim-kare.png"
+  },
+  "dependencies": {
+    "ffmpeg-static": "5.2.0",
+    "sharp": "0.33.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

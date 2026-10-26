@@ -1,0 +1,27 @@
+1
+00:00:00,200 --> 00:00:03,200
+Hakkım AI — tüketici hakları vaka asistanı.
+
+2
+00:00:03,400 --> 00:00:08,000
+Hakkın var. Ama nereden başlayacaksın?
+
+3
+00:00:04,200 --> 00:00:07,900
+Hangi kuruma başvurulur? Hangi kanıtlar gerekli? Süreç nasıl takip edilir?
+
+4
+00:00:08,300 --> 00:00:14,200
+Sorununu anlat; kategori, resmî rota ve kanıt listesi saniyeler içinde çıkar.
+
+5
+00:00:11,100 --> 00:00:14,100
+Kanıtlarının SHA-256 özeti de tek ekranda.
+
+6
+00:00:14,500 --> 00:00:18,600
+Vakalar cihazında, AES-GCM ile şifreli kalır. Yedekle, hatırlat, çevrimdışı kullan.
+
+7
+00:00:18,900 --> 00:00:22,300
+Sen uğraşma, hakkını o takip etsin. hakkim-ai-pilot.vercel.app

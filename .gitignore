@@ -1,0 +1,8 @@
+# Bağımlılıklar ve üretim artıkları
+node_modules/
+tools/video/node_modules/
+.DS_Store
+
+# Video üretiminde kullanılan geçici dosyalar
+*.tmp
+/tmp/

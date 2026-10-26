@@ -1,0 +1,7 @@
+Roboto — Copyright 2011 Google Inc. (https://fonts.google.com/specimen/Roboto)
+
+Bu yazı tipi dosyaları Apache License, Version 2.0 ile lisanslanmıştır.
+Lisans metni: http://www.apache.org/licenses/LICENSE-2.0
+
+Dosyalar olduğu gibi, yalnızca bu depodaki video üretim betiğiyle birlikte
+kullanılmak üzere dahil edilmiştir; değiştirilmemiştir.
